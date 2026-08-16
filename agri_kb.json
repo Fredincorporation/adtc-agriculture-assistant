@@ -1,0 +1,38 @@
+[
+  {
+    "id": "swahili_pest_push_pull",
+    "region": "East Africa",
+    "language": "sw",
+    "text": "Usimamizi wa Wadudu na Pest Control (Push-Pull Technology): Katika Maziwa Makuu ya Afrika (Kenya, Tanzania, Uganda), zuia funza wa mahindi (stemborers) na gugu la Striga. Panda Desmodium kati ya safu za mahindi ili kufukuza wadudu, na panda majani ya Napier kuzunguka shamba ili kuvuta wadudu nje ya shamba."
+  },
+  {
+    "id": "hausa_drought_management",
+    "region": "West Africa / Sahel",
+    "language": "ha",
+    "text": "Hanyar Kariya Daga Fari da Kwarori A Harshen Hausa: A yankin Sahel da Arewacin Najeriya, idan ruwan sama ya jinkirta, yi amfani da irin hatsi mai saurin nuna (kamar damfana na kwanaki 70). Yi amfani da ramin Zai don tara ruwa a kasa."
+  },
+  {
+    "id": "yoruba_cassava_market",
+    "region": "West Africa",
+    "language": "yo",
+    "text": "Gbingbin Gbaguda ati Tita ni Ede Yoruba: Lati pe ebi ati ajile lori gbaguda, gbin igbaguda lẹhin ti ojo ba bẹrẹ daadaa. Ti o ba fẹ ta gbaguda fun èrè, so pọ mọ awọn agbe yoku lati ko ere jọ."
+  },
+  {
+    "id": "igbo_yam_storage_pics",
+    "region": "West Africa",
+    "language": "ig",
+    "text": "Nchekwa Akwụkwọ Nri na Ji n'Asụsụ Igbo: Iji chekwaa ọka, agwa, na osikapa ka ahụhụ ghara iri ha, mịkọọ ha nke ọma wee tinye ha n'ime akpa PICS (Perdue Improved Crop Storage) na-enweghị ọgwụ kemikal."
+  },
+  {
+    "id": "english_push_pull_pest",
+    "region": "East Africa",
+    "language": "en",
+    "text": "East Africa Maize Pest Management: In Kenya, Uganda, and Tanzania, stemborer insects and Striga weed cause massive yield loss. Implement Push-Pull technology by intercropping maize with Desmodium (repels stemborers/suppresses Striga) and planting Napier grass around field borders (attracts stemborers)."
+  },
+  {
+    "id": "english_post_harvest_pics",
+    "region": "Pan-African",
+    "language": "en",
+    "text": "Post-Harvest Storage & Grain Preservation: To prevent bruchid/weevil damage and aflatoxins in stored maize, cowpea, and groundnut, dry grains to under 13% moisture content. Store in multi-layer Hermetic PICS (Perdue Improved Crop Storage) bags without chemical pesticides."
+  }
+]

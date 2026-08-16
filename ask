@@ -1,0 +1,5 @@
+#!/bin/bash
+# Simple launcher for the Agriculture Assistant
+
+cd "$(dirname "$0")"
+python3 scripts/ask.py "$@"

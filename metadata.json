@@ -1,0 +1,29 @@
+{
+ "team_id": "ADTC2026-NIG-042",
+ "domain": "agriculture",
+ "language_scope": ["en", "sw", "ha", "yo", "ig", "am", "om", "zu", "ar", "fr"],
+ "african_alpha_claim": true,
+ "budget_laptop_claim": true,
+ "submitter": {
+   "name": "Fredrick Morah",
+   "email": "fredincorporation@gmail.com",
+   "github_handle": "fredincorporation"
+ },
+ "cross_disciplinary_pairing": {
+   "discipline": "Agronomy & Offline Vector RAG",
+   "load_bearing": true
+ },
+ "test_prompts": [
+   "Jinsi gani naweza kuzuia wadudu kwenye mahindi bila kemikali?",
+   "Yaya zan kare amfanin gona daga fari a yankin Sahel?"
+ ],
+ "model": {
+   "runtime": "llama.cpp",
+   "quantization": "GGUF Q4_K_M",
+   "parameters_estimate": "3B",
+   "packaging": "binary_bundle"
+ },
+ "_runtime": {
+   "model_path": "model/Qwen2.5-3B-Instruct-Q4_K_M.gguf"
+ }
+}

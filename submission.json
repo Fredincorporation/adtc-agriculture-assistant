@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.1.0",
+  "profiler_version": "adtc-profiler 0.1.0",
+  "submission": {
+    "team_id": "YOUR_DEVPOST_TEAM_ID",
+    "domain": "agriculture",
+    "language_scope": [
+      "en"
+    ],
+    "african_alpha_claim": true,
+    "budget_laptop_claim": true,
+    "submitter": {
+      "name": "Olisaemeka Fredrick Morah",
+      "email": "your_email@example.com",
+      "github_handle": "your_github_username"
+    },
+    "cross_disciplinary_pairing": {
+      "discipline": "Agronomy",
+      "description": "Integrates domain-specific agronomy knowledge bases to validate offline crop advice and pest management strategies.",
+      "load_bearing": true
+    },
+    "model": {
+      "name": "Qwen2.5-3B-Instruct",
+      "quantization": "GGUF Q4_K_M",
+      "parameters_estimate": "3B",
+      "packaging": "binary_bundle",
+      "runtime": "llama.cpp"
+    },
+    "test_prompts": [
+      {
+        "prompt_id": "p001",
+        "prompt": "How can I control fall armyworm on my maize farm using low-cost organic methods?"
+      },
+      {
+        "prompt_id": "p002",
+        "prompt": "My cassava leaves show yellow mosaic patterns and stunting. What is the cause and how do I prevent its spread?"
+      }
+    ]
+  },
+  "environment": {
+    "measured_on": "participant_laptop",
+    "cpu_model": "Intel(R) Core(TM) i7-3840QM CPU @ 2.80GHz",
+    "ram_gb": 7.8,
+    "gpu": "none",
+    "os": "Ubuntu 22.04.5 LTS"
+  },
+  "throughput": {
+    "tokens_per_second_generation": 4.17,
+    "first_token_latency_ms": 48147.52,
+    "prompt_tokens": 512,
+    "generated_tokens": 128
+  },
+  "memory": {
+    "peak_rss_mb": 2271.86,
+    "steady_state_rss_mb": 2093.99,
+    "peak_vms_mb": 3373.73
+  },
+  "accuracy": [
+    {
+      "benchmark": "arc_easy",
+      "dataset_version": "lm-eval-harness",
+      "language": "en",
+      "samples": 50,
+      "score": 0.78,
+      "metric": "acc_norm"
+    }
+  ],
+  "cpu_thermal": {
+    "cpu_percent_p99": 56.9,
+    "core_temp_c_peak": null,
+    "throttled": false
+  },
+  "reproducibility": {
+    "git_commit_sha": "000000000000",
+    "docker_image_digest": "unknown",
+    "random_seed": 42
+  },
+  "model_info": {
+    "params_count": 3397103616,
+    "context_length": 32768,
+    "architecture": "qwen2",
+    "claimed_params_estimate": "3B",
+    "params_match": true
+  }
+}
