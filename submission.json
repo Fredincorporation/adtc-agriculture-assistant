@@ -2,40 +2,49 @@
   "schema_version": "1.1.0",
   "profiler_version": "adtc-profiler 0.1.0",
   "submission": {
-    "team_id": "YOUR_DEVPOST_TEAM_ID",
+    "team_id": "ADTC2026-NIG-042",
     "domain": "agriculture",
     "language_scope": [
-      "en"
+      "en",
+      "sw",
+      "ha",
+      "yo",
+      "ig",
+      "am",
+      "om",
+      "zu",
+      "ar",
+      "fr"
     ],
     "african_alpha_claim": true,
     "budget_laptop_claim": true,
     "submitter": {
-      "name": "Olisaemeka Fredrick Morah",
-      "email": "your_email@example.com",
-      "github_handle": "your_github_username"
+      "name": "Fredrick Morah",
+      "email": "fredincorporation@gmail.com",
+      "github_handle": "fredincorporation"
     },
     "cross_disciplinary_pairing": {
-      "discipline": "Agronomy",
-      "description": "Integrates domain-specific agronomy knowledge bases to validate offline crop advice and pest management strategies.",
+      "discipline": "Agronomy & Offline Vector RAG",
+      "description": "Integrates agronomic pest control knowledge with offline vector search for localized low-spec AI advisory.",
       "load_bearing": true
-    },
-    "model": {
-      "name": "Qwen2.5-3B-Instruct",
-      "quantization": "GGUF Q4_K_M",
-      "parameters_estimate": "3B",
-      "packaging": "binary_bundle",
-      "runtime": "llama.cpp"
     },
     "test_prompts": [
       {
-        "prompt_id": "p001",
-        "prompt": "How can I control fall armyworm on my maize farm using low-cost organic methods?"
+        "prompt_id": "prompt_01",
+        "prompt": "Jinsi gani naweza kuzuia wadudu kwenye mahindi bila kemikali?"
       },
       {
-        "prompt_id": "p002",
-        "prompt": "My cassava leaves show yellow mosaic patterns and stunting. What is the cause and how do I prevent its spread?"
+        "prompt_id": "prompt_02",
+        "prompt": "Yaya zan kare amfanin gona daga fari a yankin Sahel?"
       }
-    ]
+    ],
+    "model": {
+      "name": "Qwen2.5-3B-Instruct",
+      "runtime": "llama.cpp",
+      "quantization": "GGUF Q4_K_M",
+      "parameters_estimate": "3B",
+      "packaging": "binary_bundle"
+    }
   },
   "environment": {
     "measured_on": "participant_laptop",
@@ -45,15 +54,15 @@
     "os": "Ubuntu 22.04.5 LTS"
   },
   "throughput": {
-    "tokens_per_second_generation": 4.17,
-    "first_token_latency_ms": 48147.52,
+    "tokens_per_second_generation": 1.99,
+    "first_token_latency_ms": 85246.3,
     "prompt_tokens": 512,
     "generated_tokens": 128
   },
   "memory": {
-    "peak_rss_mb": 2271.86,
-    "steady_state_rss_mb": 2093.99,
-    "peak_vms_mb": 3373.73
+    "peak_rss_mb": 2271.53,
+    "steady_state_rss_mb": 2079.17,
+    "peak_vms_mb": 3373.77
   },
   "accuracy": [
     {
@@ -66,12 +75,12 @@
     }
   ],
   "cpu_thermal": {
-    "cpu_percent_p99": 56.9,
+    "cpu_percent_p99": 58.3,
     "core_temp_c_peak": null,
     "throttled": false
   },
   "reproducibility": {
-    "git_commit_sha": "000000000000",
+    "git_commit_sha": "b21d4e1e951d",
     "docker_image_digest": "unknown",
     "random_seed": 42
   },
