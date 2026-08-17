@@ -1,6 +1,7 @@
 import sys
 import warnings
 from rag_engine import query_knowledge_base
+from query_interceptor import ContextGuardrail
 from llama_cpp import Llama
 from rich.console import Console
 from rich.markdown import Markdown
@@ -18,6 +19,9 @@ llm = Llama(
 
 response_cache = {}
 
+# Initialize guardrail instance to preserve session state (e.g., stored location/crop) across turns
+guardrail = ContextGuardrail()
+
 console.print("\n[bold green]🌾 ADTC Pan-African Agriculture Assistant Initialized.[/bold green]")
 console.print("Type '[bold red]exit[/bold red]' or '[bold red]quit[/bold red]' to exit.\n")
 
@@ -29,15 +33,22 @@ while True:
         if not user_query:
             continue
 
+        # --- STEP 1: INTERCEPT & ENRICH ---
+        # Intercepts generic inputs, prompts for missing slot variables, and returns enriched string
+        user_query = guardrail.check_and_enrich(user_query)
+
+        # Use enriched query string for cache keys and vector search
         query_key = user_query.lower()
 
+        # --- STEP 2: CACHE CHECK ---
         if query_key in response_cache:
             console.print("\n[dim yellow]⚡ [Cache Hit] Serving response instantly from memory...[/dim yellow]\n")
             console.print(Markdown(response_cache[query_key]))
             console.print("\n" + "-" * 50)
             continue
 
-        # Fetch top 4 context chunks for deeper background
+        # --- STEP 3: RAG RETRIEVAL ---
+        # Fetch top 4 context chunks using enriched query
         context = query_knowledge_base(user_query, top_k=4)
 
         # Enforce expansive depth and detailed explanations
