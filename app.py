@@ -70,20 +70,26 @@ while True:
         stream = llm(
             prompt,
             max_tokens=-1,
-            temperature=0.35,
-            repeat_penalty=1.1,
-            stop=["<|im_end|>", "<|im_start|>"],
+            temperature=0.30,
+            repeat_penalty=1.15,
+            stop=["<|im_end|>", "<|im_start|>", "User:", "\nUser"],
             stream=True
         )
 
         full_response = ""
         console.print()
 
-        with Live(Markdown(""), console=console, refresh_per_second=12) as live:
+        with Live(Markdown(""), console=console, refresh_per_second=30) as live:
             for output in stream:
                 token = output["choices"][0]["text"]
                 full_response += token
-                live.update(Markdown(full_response))
+		sys.stdout.write(token)
+                sys.stdout.flush()
+               # live.update(Markdown(full_response))
+
+	# Render styled Markdown cleanly once full stream finishes 
+	console.print("\n")
+        console.print(Markdown(full_response))
 
         response_cache[query_key] = full_response
         console.print("\n" + "-" * 50)
