@@ -79,17 +79,12 @@ while True:
         full_response = ""
         console.print()
 
+        # Option A: Single-pass live Markdown rendering (no sys.stdout duplication)
         with Live(Markdown(""), console=console, refresh_per_second=30) as live:
             for output in stream:
                 token = output["choices"][0]["text"]
                 full_response += token
-		sys.stdout.write(token)
-                sys.stdout.flush()
-               # live.update(Markdown(full_response))
-
-	# Render styled Markdown cleanly once full stream finishes 
-	console.print("\n")
-        console.print(Markdown(full_response))
+                live.update(Markdown(full_response))
 
         response_cache[query_key] = full_response
         console.print("\n" + "-" * 50)
