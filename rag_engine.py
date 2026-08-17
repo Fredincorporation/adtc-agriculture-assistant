@@ -1,25 +1,28 @@
-\import sqlite3
-import os
+import sqlite3
 import pickle
-import numpy as np
-from sentence_transformers import SentenceTransformer
+import os
 
-# Read HF_TOKEN from environment instead of hardcoding
+# Suppress Hugging Face download warnings & progress outputs
+os.environ["HF_HUB_VERBOSITY"] = "error"
+os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
+
+# Read HF_TOKEN from environment if set
 hf_token = os.environ.get("HF_TOKEN")
 if hf_token:
     os.environ["HF_TOKEN"] = hf_token
 
-# Suppress warnings
-os.environ["HF_HUB_VERBOSITY"] = "error"
-os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
+from sentence_transformers import SentenceTransformer
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "agriculture.db")
+DB_PATH = "agriculture.db"
+MODEL_NAME = "all-MiniLM-L6-v2"
+
+# Lazy-load embedding model
 _model = None
 
 def get_model():
     global _model
     if _model is None:
-        _model = SentenceTransformer("all-MiniLM-L6-v2")
+        _model = SentenceTransformer(MODEL_NAME)
     return _model
 
 def init_db():
@@ -38,36 +41,35 @@ def init_db():
     conn.commit()
     conn.close()
 
-def query_knowledge_base(query, top_k=4):
+def query_knowledge_base(query: str, top_k: int = 4) -> str:
     if not os.path.exists(DB_PATH):
         return ""
-    
-    conn = sqlite3.connect(DB_PATH)
-    cursor = conn.cursor()
-    
-    cursor.execute("SELECT content, embedding FROM knowledge_base WHERE embedding IS NOT NULL")
-    rows = cursor.fetchall()
-    
-    if not rows:
-        # Fallback to basic text match if embeddings aren't populated
-        cursor.execute("SELECT content FROM knowledge_base LIMIT ?", (top_k,))
-        results = [r[0] for r in cursor.fetchall()]
-        conn.close()
-        return "\n\n".join(results)
-    
+
     model = get_model()
     query_emb = model.encode(query, normalize_embeddings=True)
-    
-    scored_results = []
-    for content, emb_blob in rows:
-        emb = pickle.loads(emb_blob)
-        similarity = np.dot(query_emb, emb)
-        scored_results.append((similarity, content))
-    
+
+    conn = sqlite3.connect(DB_PATH)
+    cursor = conn.cursor()
+    cursor.execute("SELECT crop, title, topic, content, embedding FROM knowledge_base")
+    rows = cursor.fetchall()
     conn.close()
-    
-    # Sort by similarity score descending
-    scored_results.sort(key=lambda x: x[0], reverse=True)
-    top_results = [item[1] for item in scored_results[:top_k]]
-    
-    return "\n\n".join(top_results)
+
+    if not rows:
+        return ""
+
+    results = []
+    for crop, title, topic, content, emb_blob in rows:
+        doc_emb = pickle.loads(emb_blob)
+        # Cosine similarity for normalized vectors
+        score = float(query_emb @ doc_emb)
+        results.append((score, crop, title, topic, content))
+
+    results.sort(key=lambda x: x[0], reverse=True)
+    top_matches = results[:top_k]
+
+    context_str = "\n\n".join([
+        f"[{crop} - {title}]\n{content}"
+        for _, crop, title, topic, content in top_matches
+    ])
+
+    return context_str
