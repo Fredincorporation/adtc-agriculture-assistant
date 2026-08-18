@@ -19,7 +19,7 @@ llm = Llama(
 
 response_cache = {}
 
-# Initialize guardrail instance to preserve session state (e.g., stored location/crop) across turns
+# Initialize guardrail instance to preserve session state across turns
 guardrail = ContextGuardrail()
 
 console.print("\n[bold green]🌾 ADTC Pan-African Agriculture Assistant Initialized.[/bold green]")
@@ -34,10 +34,7 @@ while True:
             continue
 
         # --- STEP 1: INTERCEPT & ENRICH ---
-        # Intercepts generic inputs, prompts for missing slot variables, and returns enriched string
         user_query = guardrail.check_and_enrich(user_query)
-
-        # Use enriched query string for cache keys and vector search
         query_key = user_query.lower()
 
         # --- STEP 2: CACHE CHECK ---
@@ -48,10 +45,8 @@ while True:
             continue
 
         # --- STEP 3: RAG RETRIEVAL ---
-        # Fetch top 4 context chunks using enriched query
         context = query_knowledge_base(user_query, top_k=4)
 
-        # Enforce expansive depth and detailed explanations
         system_prompt = (
             "You are the ADTC Pan-African Agriculture Assistant, an expert agronomist providing thorough, highly detailed, and actionable agricultural guidance for African farmers.\n\n"
             "Formatting & Style Rules:\n"
@@ -79,12 +74,21 @@ while True:
         full_response = ""
         console.print()
 
-        # Option A: Single-pass live Markdown rendering (no sys.stdout duplication)
-        with Live(Markdown(""), console=console, refresh_per_second=30) as live:
+        # --- STEP 4: RICH LIVE STREAMING WITH CONTROLLED REFRESH ---
+        # auto_refresh=False prevents repeated duplicate lines in TTY scrollbacks
+        with Live(Markdown(""), console=console, auto_refresh=False) as live:
+            token_counter = 0
             for output in stream:
                 token = output["choices"][0]["text"]
                 full_response += token
-                live.update(Markdown(full_response))
+                token_counter += 1
+                
+                # Refresh rendering every 3 tokens to keep speed fast and prevent flicker
+                if token_counter % 3 == 0:
+                    live.update(Markdown(full_response), refresh=True)
+
+            # Final render to catch remaining tokens
+            live.update(Markdown(full_response), refresh=True)
 
         response_cache[query_key] = full_response
         console.print("\n" + "-" * 50)
