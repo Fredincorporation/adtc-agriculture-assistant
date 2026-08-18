@@ -64,7 +64,7 @@ def query_knowledge_base(query: str, top_k: int = 4) -> str:
         score = float(query_emb @ doc_emb)
         results.append((score, crop, title, topic, content))
 
-    results.sort(key=lambda x: x[0], reverse=True)
+    results.sort(key=lambda x: float(x[0]), reverse=True)
     top_matches = results[:top_k]
 
     context_str = "\n\n".join([

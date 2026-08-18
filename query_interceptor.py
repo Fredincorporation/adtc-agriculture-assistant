@@ -9,13 +9,40 @@ class ContextGuardrail:
 
     def extract_known_entities(self, query: str):
         query_lower = query.lower()
-        
-        locations = ["nigeria", "kenya", "ghana", "uganda", "zambia", "malawi", "ethiopia", "tanzania", "sahel", "west africa", "east africa"]
+
+        locations = [
+            "nigeria", "kenya", "ghana", "uganda", "zambia", "malawi", "ethiopia", "tanzania", 
+            "sahel", "west africa", "east africa", "central africa", "southern africa", "north africa",
+            "rwanda", "burundi", "cameroon", "senegal", "mali", "burkina faso", "cote d'ivoire", "ivory coast"
+        ]
         for loc in locations:
             if loc in query_lower:
                 self.session_context["location"] = loc.title()
-                
-        crops = ["pawpaw", "paw paw", "papaya", "maize", "cassava", "cowpea", "yam", "teff", "rice", "groundnut", "tomato", "coffee", "cocoa"]
+
+        crops = [
+            # Cereals & Grains
+            "maize", "corn", "cassava", "cowpea", "yam", "teff", "rice", "groundnut", "peanut",
+            "sorghum", "millet", "fonio", "wheat", "barley", "oats", "rye",
+            
+            # Roots, Tubers & Pulses
+            "sweet potato", "potato", "irish potato", "cocoyam", "taro", "tannia", "pigeon pea", 
+            "pigeonpea", "bambara groundnut", "soybean", "faba bean", "chickpea", "lentil", 
+            "dry bean", "hyacinth bean", "lablab", "velvet bean", "broad bean",
+            
+            # Cash & Plantation Crops
+            "coffee", "cocoa", "tea", "cotton", "cashew", "sugarcane", "rubber", "tobacco", 
+            "oil palm", "palm oil", "sesame", "sunflower", "sisal", "kenaf", "pyrethrum", "kola nut",
+            
+            # Fruits & Nuts
+            "pawpaw", "paw paw", "papaya", "mango", "mangoes", "plantain", "banana", "citrus", 
+            "orange", "pineapple", "guava", "avocado", "watermelon", "date palm", "date", 
+            "fig", "olive", "grape", "grapefruit", "macadamia", "coconut", "apple", "peach",
+            
+            # Vegetables & Spices
+            "tomato", "onion", "okra", "garden egg", "eggplant", "pepper", "chili", "cabbage", 
+            "cauliflower", "cucumber", "ginger", "garlic", "turmeric", "clove", "vanilla", "cardamom"
+        ]
+        
         for crop in crops:
             if crop in query_lower:
                 self.session_context["crop"] = crop.title()
@@ -23,7 +50,7 @@ class ContextGuardrail:
     def check_and_enrich(self, raw_query: str) -> str:
         self.extract_known_entities(raw_query)
         query_lower = raw_query.lower()
-        
+
         # 1. Location slot check
         requires_location = any(intent in query_lower for intent in self.location_intents)
         if requires_location and "location" not in self.session_context:
@@ -44,7 +71,7 @@ class ContextGuardrail:
         additions = []
         if "crop" in self.session_context and self.session_context["crop"].lower() not in query_lower:
             additions.append(f"Crop: {self.session_context['crop']}")
-            
+
         if "location" in self.session_context and self.session_context["location"].lower() not in query_lower:
             additions.append(f"Location: {self.session_context['location']}")
 
