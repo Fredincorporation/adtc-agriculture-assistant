@@ -1,28 +1,26 @@
-import sqlite3
-import pickle
 import os
 
-# Suppress Hugging Face download warnings & progress outputs
+# --- ENFORCE STRICT OFFLINE MODE ---
+os.environ["HF_HUB_OFFLINE"] = "1"
+os.environ["TRANSFORMERS_OFFLINE"] = "1"
 os.environ["HF_HUB_VERBOSITY"] = "error"
 os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
 
-# Read HF_TOKEN from environment if set
-hf_token = os.environ.get("HF_TOKEN")
-if hf_token:
-    os.environ["HF_TOKEN"] = hf_token
-
+import sqlite3
+import pickle
 from sentence_transformers import SentenceTransformer
 
 DB_PATH = "agriculture.db"
 MODEL_NAME = "all-MiniLM-L6-v2"
 
-# Lazy-load embedding model
+# Lazy-load embedding model strictly offline
 _model = None
 
 def get_model():
     global _model
     if _model is None:
-        _model = SentenceTransformer(MODEL_NAME)
+        # local_files_only=True prevents network check attempts
+        _model = SentenceTransformer(MODEL_NAME, local_files_only=True)
     return _model
 
 def init_db():

@@ -1,3 +1,7 @@
+import os
+os.environ["HF_HUB_OFFLINE"] = "1"
+os.environ["TRANSFORMERS_OFFLINE"] = "1"
+
 import sys
 import warnings
 from rag_engine import query_knowledge_base
@@ -75,19 +79,16 @@ while True:
         console.print()
 
         # --- STEP 4: RICH LIVE STREAMING WITH CONTROLLED REFRESH ---
-        # auto_refresh=False prevents repeated duplicate lines in TTY scrollbacks
         with Live(Markdown(""), console=console, auto_refresh=False) as live:
             token_counter = 0
             for output in stream:
                 token = output["choices"][0]["text"]
                 full_response += token
                 token_counter += 1
-                
-                # Refresh rendering every 3 tokens to keep speed fast and prevent flicker
+
                 if token_counter % 3 == 0:
                     live.update(Markdown(full_response), refresh=True)
 
-            # Final render to catch remaining tokens
             live.update(Markdown(full_response), refresh=True)
 
         response_cache[query_key] = full_response
