@@ -42,7 +42,7 @@ adtc-agriculture-assistant/
 
 ## 🛠️ Setup & Installation
 
-### 1. System Prerequisites (For Clean Ubuntu Systems)
+### System Prerequisites (For Clean Ubuntu Systems)
 If deploying on a fresh Ubuntu instance, install Python and build essentials first:
 
 ```bash
