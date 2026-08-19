@@ -76,5 +76,9 @@ python3 app.py
 To verify offline benchmark scores and telemetry locally:
 
 ```bash
-adtc-profiler run   --submission .   --mode participant   --output submission.json
+adtc-profiler run \
+  --submission . \
+  --mode participant \
+  --output submission.json
 ```
+
