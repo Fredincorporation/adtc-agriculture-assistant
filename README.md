@@ -51,7 +51,9 @@ sudo apt-get update && sudo apt-get install -y \
     python3-pip \
     git \
     build-essential\
-    curl
+    curl\
+    cmake\
+    ninja-build
 ```
 
 ### Quick Start
