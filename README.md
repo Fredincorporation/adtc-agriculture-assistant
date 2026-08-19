@@ -40,6 +40,20 @@ adtc-agriculture-assistant/
 - **Python:** 3.10+
 - **System RAM:** 8 GB minimum (Peak RSS: ~2.3 GB)
 
+## 🛠️ Setup & Installation
+
+### 1. System Prerequisites (For Clean Ubuntu Systems)
+If deploying on a fresh Ubuntu instance, install Python and build essentials first:
+
+```bash
+sudo apt-get update && sudo apt-get install -y \
+    python3 \
+    python3-pip \
+    git \
+    build-essential\
+    curl
+```
+
 ### Quick Start
 
 1. Clone the repository:
