@@ -70,7 +70,7 @@ chmod +x download_model.sh
 
 3. Install Python dependencies:
 ```bash
-pip install -r requirements.txt --break-system-packages
+pip install -r requirements.txt
 ```
 
 4. Initialize the agronomy knowledge base:
