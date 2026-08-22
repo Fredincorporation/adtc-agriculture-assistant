@@ -17,11 +17,11 @@
   "test_prompts": [
     {
       "prompt_id": "prompt_01",
-      "prompt": "Jinsi gani naweza kuzuia wadudu kwenye mahindi bila kemikali?"
+      "prompt": "What is the optimal planting calendar and intercropping setup for maize and cowpea to maximize yields during the rainy season in Kumasi, Ghana"
     },
     {
       "prompt_id": "prompt_02",
-      "prompt": "Yaya zan kare amfanin gona daga fari a yankin Sahel?"
+      "prompt": "How can a smallholder farmer prevent post-harvest losses and mold growth when storing harvested yam tubers without electricity"
     }
   ],
   "model": {
