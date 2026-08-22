@@ -31,11 +31,11 @@
     "test_prompts": [
       {
         "prompt_id": "prompt_01",
-        "prompt": "Jinsi gani naweza kuzuia wadudu kwenye mahindi bila kemikali?"
+        "prompt": "How can I effectively manage Fall Armyworm in my maize crop using low-cost, non-chemical methods"
       },
       {
         "prompt_id": "prompt_02",
-        "prompt": "Yaya zan kare amfanin gona daga fari a yankin Sahel?"
+        "prompt": "What are the best soil management and water retention techniques for planting cassava in Jos, Nigeria"
       }
     ],
     "model": {
