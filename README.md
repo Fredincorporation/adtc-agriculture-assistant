@@ -72,7 +72,11 @@ chmod +x download_model.sh
 
 3. Install Python dependencies:
 ```bash
-pip install -r requirements.txt
+pip install -r ./requirements.txt
+```
+#If pip throws an externally-managed-environment error, pass the break-system-packages flag
+```bash
+pip install -r ./requirements.txt --break-system-packages
 ```
 
 4. Initialize the agronomy knowledge base:
